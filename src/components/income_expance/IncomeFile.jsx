@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../utilities/Button";
+import Button from "./utilities/Button";
 
 const IncomeFile = () => {
   const [incomeParticulars, setIncomeParticulars] = useState({
@@ -7,23 +7,15 @@ const IncomeFile = () => {
     amount: "",
   });
 
-  const [itemList, setItemList] = useState([]);
+  const [incomeList, setincomeList] = useState([]);
 
   const addIncomeDetails = () => {
-    const amountValue = parseFloat(incomeParticulars.amount);
-    if (Number.isNaN(amountValue)) {
-      alert("Amount is not a number");
-    }
-    if (
-      incomeParticulars.name !== "" &&
-      incomeParticulars.amount !== "" &&
-      !Number.isNaN(amountValue)
-    ) {
-      setItemList([...itemList, incomeParticulars]);
+    if (incomeParticulars.name !== "" && incomeParticulars.amount !== "") {
+      setincomeList([...incomeList, incomeParticulars]);
       setIncomeParticulars({ name: "", amount: "" });
     }
   };
-  const totalAmount = itemList.reduce(
+  const totalAmount = incomeList.reduce(
     (total, item) => total + parseFloat(item.amount),
     0
   );
@@ -77,7 +69,7 @@ const IncomeFile = () => {
               name="amount"
             />
           </div>
-          <div className="flex justify-end mb-3">
+          <div className="flex justify-end">
             <Button
               handler={addIncomeDetails}
               customStyle="bg-orange-400 text-sky-800"
@@ -92,7 +84,7 @@ const IncomeFile = () => {
           Income details
         </h1>
         <ul className=" w-2/3 mx-auto my-3">
-          {itemList.map((item, index) => {
+          {incomeList.map((item, index) => {
             return (
               <li
                 key={index}
@@ -104,19 +96,9 @@ const IncomeFile = () => {
             );
           })}
         </ul>
-        {itemList.length !== 0 ? (
-          <div className="w-1/2 mx-auto">
-            <p className="py-2 px-4 bg-slate-300 text-center text-orange-500 text-lg font-black rounded">
-              Your total Income: {totalAmount}
-            </p>
-          </div>
-        ) : (
-          <div className="w-1/2 mx-auto">
-            <p className="pt-14 text-center text-orange-500 text-lg font-black">
-              Your have no income yet!
-            </p>
-          </div>
-        )}
+        <p className="py-2 px-4 bg-slate-300 text-center text-orange-500 text-lg font-black">
+          Your total Income: {totalAmount}
+        </p>
       </div>
     </div>
   );
