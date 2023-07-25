@@ -1,10 +1,11 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
+import ExpanseFile from "../components/income_expance/ExpanseFile";
 
 const Expanse = () => {
   return (
     <Layout>
-      <h1>Expanse page</h1>
+      <ExpanseFile />
     </Layout>
   );
 };
